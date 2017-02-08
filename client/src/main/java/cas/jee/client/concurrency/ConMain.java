@@ -18,7 +18,7 @@ public class ConMain {
 		try {
 			Context remoteContext = new InitialContext(env);
 			ServerStorage storage = (ServerStorage) remoteContext
-					.lookup("concurrency/ServerStorageImpl!cas.jee.ejb.client.ServerStorage");
+					.lookup("jeeexample/ServerStorageImpl!cas.jee.ejb.client.ServerStorage");
 			storage.saveData("key", "value");
 			System.out.println(storage.getClass());
 			System.out.println(storage.readData("key"));
