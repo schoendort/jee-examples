@@ -5,7 +5,7 @@
     <artifactId>jee.examples</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>concurrency</artifactId>
+  <artifactId>server</artifactId>
   <packaging>war</packaging>
   
   <properties>
@@ -13,7 +13,7 @@
   </properties>
   
   <build>
-  	<finalName>concurrency</finalName>
+  	<finalName>jeeexample</finalName>
   </build>
   <dependencies>
   	<dependency>

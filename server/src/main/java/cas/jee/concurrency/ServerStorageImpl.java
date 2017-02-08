@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
 
@@ -13,6 +15,7 @@ import cas.jee.ejb.client.ServerStorage;
 
 @Singleton
 @Remote(ServerStorage.class)
+@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class ServerStorageImpl implements ServerStorage {
 
 	private static final Logger LOGGER = Logger.getLogger(ServerStorageImpl.class.getName());
