@@ -8,37 +8,51 @@ import java.util.stream.Collectors;
 
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
+import javax.interceptor.Interceptors;
 
+import cas.jee.cdi.AuditInterceptor;
 import cas.jee.ejb.client.ServerStorage;
 
 @Singleton
 @Remote(ServerStorage.class)
-public class ServerStorageImpl implements ServerStorage {
+@Interceptors(AuditInterceptor.class)
+public class ServerStorageImpl
+    implements ServerStorage
+{
 
-	private static final Logger LOGGER = Logger.getLogger(ServerStorageImpl.class.getName());
+    private static final Logger LOGGER =
+        Logger.getLogger(ServerStorageImpl.class.getName());
 
-	private Map<String, String> storage = new HashMap<>();
+    private Map<String, String> storage = new HashMap<>();
 
-	@Override
-	public void saveData(String key, String value) {
-		LOGGER.severe("save data [" + key + "=" + value + "]");
-		storage.put(key, value);
-	}
+    @Override
+    @Interceptors(AuditInterceptor.class)
+    public void saveData(String key, String value)
+    {
+        LOGGER.severe("save data [" + key + "=" + value + "]");
+        storage.put(key, value);
+    }
 
-	@Override
-	public String readData(String key) {
-		LOGGER.severe("read data for key = [" + key + "]");
-		return storage.get(key);
-	}
+    @Override
+    public String readData(String key)
+    {
+        LOGGER.severe("read data for key = [" + key + "]");
+        return storage.get(key);
+    }
 
-	@Override
-	public List<String> filterValues(String contains) {
-		return storage.values().stream().filter(v -> v.contains(contains)).collect(Collectors.toList());
-	}
+    @Override
+    public List<String> filterValues(String contains)
+    {
+        return storage.values()
+            .stream()
+            .filter(v -> v.contains(contains))
+            .collect(Collectors.toList());
+    }
 
-	@Override
-	public void removeData(String key) {
-		storage.remove(key);
-	}
+    @Override
+    public void removeData(String key)
+    {
+        storage.remove(key);
+    }
 
 }
